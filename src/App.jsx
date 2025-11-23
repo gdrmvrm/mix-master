@@ -1,6 +1,8 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import { About, Cocktail, Error, HomeLayout, Newsletter, Landing } from './pages';
+import { loader as landingLoader } from './pages/Landing';
+import SingleErrorPage from './pages/SingleErrorPage';
 
 const router = createBrowserRouter([
   {
@@ -10,6 +12,8 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
+        loader: landingLoader,
+        errorElement: <SingleErrorPage />,
         element: <Landing />
       },
       {
