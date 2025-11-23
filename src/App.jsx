@@ -16,11 +16,11 @@ const router = createBrowserRouter([
         element: <Cocktail />
       },
       {
-        path: 'news letter',
+        path: 'newsletter',
         element: <Newsletter />
       },
       {
-        path: '/about',
+        path: 'about',
         element: <About />
       }
     ]
