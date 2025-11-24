@@ -3,7 +3,7 @@ import Wrapper from '../assets/wrappers/CocktailList';
 import CocktailCard from './CocktailCard';
 
 const CocktailList = ({ drinks }) => {
-  if (!drinks) {
+  if (!drinks || drinks.length === 0) {
     return <h4 style={{ textAlign: 'center' }}>No matching cocktails found...</h4>;
   }
   const formattedDrinks = drinks.map((item) => {
