@@ -8,7 +8,6 @@ const singleCocktailUrl = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.ph
 
 export const loader = async ({ params }) => {
   const { id } = params;
-
   const response = await axios.get(`${singleCocktailUrl}${id}`);
 
   return { drinks: response?.data?.drinks, id };
@@ -16,6 +15,9 @@ export const loader = async ({ params }) => {
 
 const Cocktail = () => {
   const { drinks, id } = useLoaderData();
+
+  // if (!data) return <h2>something went wrong...</h2>;
+  if (!drinks) return <Navigate to="/" />;
 
   const singleDrink = drinks[0];
   const {

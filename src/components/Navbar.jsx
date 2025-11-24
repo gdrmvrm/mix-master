@@ -15,7 +15,7 @@ const Navbar = () => {
             About
           </NavLink>
           <NavLink to="/newsletter" className="nav-link">
-            News Letter
+            Newsletter
           </NavLink>
         </div>
       </div>
