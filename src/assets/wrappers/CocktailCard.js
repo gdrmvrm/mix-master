@@ -21,7 +21,8 @@ const Wrapper = styled.article`
       margin-bottom: 0.5rem;
     }
     h4 {
-      font-weight: 600;
+      font-weight: 500;
+      font-size: 1.8rem;
     }
     p {
       margin-bottom: 1rem;

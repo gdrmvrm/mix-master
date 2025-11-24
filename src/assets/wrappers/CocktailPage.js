@@ -2,6 +2,8 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   header {
+    display: flex;
+    justify-content: flex-end;
     text-align: center;
     margin-bottom: 3rem;
     .btn {
@@ -15,7 +17,7 @@ const Wrapper = styled.div`
     padding-top: 2rem;
   }
   .drink p {
-    font-weight: 700;
+    font-weight: 500;
     text-transform: capitalize;
     line-height: 2;
     margin-bottom: 1rem;
