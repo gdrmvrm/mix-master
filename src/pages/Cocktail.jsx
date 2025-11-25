@@ -27,9 +27,8 @@ export const loader =
 
 const Cocktail = () => {
   const { id } = useLoaderData();
-  const { data: drinks } = useQuery(singleCocktailQuery(id));
 
-  // if (!data) return <h2>something went wrong...</h2>;
+  const { data: drinks } = useQuery(singleCocktailQuery(id));
   if (!drinks) return <Navigate to="/" />;
 
   const singleDrink = drinks[0];
@@ -49,7 +48,7 @@ const Cocktail = () => {
   return (
     <Wrapper>
       <header>
-        <Link style={{}} to="/" className="btn">
+        <Link to="/" className="btn">
           back home
         </Link>
       </header>
