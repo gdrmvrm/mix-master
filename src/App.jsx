@@ -11,7 +11,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      slaleTime: 1000 * 60 * 5
+      staleTime: 1000 * 60 * 5
     }
   }
 });
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        loader: landingLoader,
+        loader: landingLoader(queryClient),
         errorElement: <SingleErrorPage />,
         element: <Landing />
       },
@@ -49,10 +49,11 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  return;
-  <QueryClientProvider client={queryClient}>
-    <RouterProvider router={router} />
-    <ReactQueryDevtools initialIsOpen={false} />
-  </QueryClientProvider>;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+  );
 };
 export default App;

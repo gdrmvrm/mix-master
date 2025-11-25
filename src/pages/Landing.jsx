@@ -3,31 +3,48 @@ import React from 'react';
 import { useLoaderData } from 'react-router-dom';
 import CocktailList from '../components/CocktailList';
 import SearchForm from '../components/SearchForm';
+import { useQuery } from '@tanstack/react-query';
 
 const cocktailSearchUrl = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 
-export const loader = async ({ request }) => {
-  const url = new URL(request.url);
+const searchCocktailQuery = (searchTerm) => {
+  return {
+    queryKey: ['search', searchTerm || 'all'],
+    queryFn: async () => {
+      searchTerm = searchTerm || 'a';
 
-  const searchTerm = url.searchParams.get('search') || '';
-
-  // Use different endpoint based on whether there's a search term
-  let apiUrl;
-  if (searchTerm) {
-    // Search by name
-    apiUrl = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchTerm}`;
-  } else {
-    // When empty, search by first letter 'a' to get some results
-    apiUrl = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=a`;
-  }
-
-  const response = await axios.get(apiUrl);
-
-  return { drinks: response?.data?.drinks, searchTerm };
+      const response = await axios.get(`${cocktailSearchUrl}${searchTerm}`);
+      return response.data.drinks;
+    }
+  };
 };
 
+export const loader =
+  (queryClient) =>
+  async ({ request }) => {
+    const url = new URL(request.url);
+
+    const searchTerm = url.searchParams.get('search') || '';
+
+    await queryClient.ensureQueryData(searchCocktailQuery(searchTerm));
+    return { searchTerm };
+
+    // Use different endpoint based on whether there's a search term
+    // let apiUrl;
+    // if (searchTerm) {
+    //   // Search by name
+    //   apiUrl = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchTerm}`;
+    // } else {
+    //   // When empty, search by first letter 'a' to get some results
+    //   apiUrl = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=a`;
+    // }
+
+    // const response = await axios.get(apiUrl);
+  };
+
 const Landing = () => {
-  const { drinks, searchTerm } = useLoaderData();
+  const { searchTerm } = useLoaderData();
+  const { data: drinks } = useQuery(searchCocktailQuery(searchTerm));
 
   return (
     <>
